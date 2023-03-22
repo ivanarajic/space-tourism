@@ -72,7 +72,7 @@ export default function Home() {
               {crewData.map((item) => (
                 <a
                   key={item.id}
-                  className={`ml-5 inline-block h-3 w-3 cursor-pointer rounded-full hover:bg-white/50 lg:ml-0 lg:mr-5  ${
+                  className={`ml-5 inline-block h-4 w-4 cursor-pointer rounded-full lg:ml-0  lg:mr-5 lg:hover:bg-white/50  ${
                     active === item.id ? 'bg-white' : 'bg-white/20'
                   }`}
                   onClick={() => handleClick(item.id)}
