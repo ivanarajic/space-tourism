@@ -43,7 +43,7 @@ export default function Home() {
 
       <div
         className="flex flex-col items-center gap-7
-         p-8 text-white lg:items-start lg:pl-36"
+         p-8 text-white lg:items-start lg:pb-0 lg:pl-36"
       >
         <h2
           className={`${subtitleFont.className} mt-4 uppercase tracking-[2.7px]  sm:self-start sm:text-xl lg:text-2xl`}
