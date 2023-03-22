@@ -3,16 +3,33 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { crewData } from '../../utils/constants';
 import { subtitleFont, titleFont } from '../../utils/fonts';
+import { useAnimate } from 'framer-motion';
 
 export default function Home() {
   const [crewId, setCrewId] = useState(0);
   const [active, setActive] = useState(0);
+  const [scope, animate] = useAnimate();
 
   const { name, image, role, bio } = crewData[crewId];
 
   const handleClick = (id) => {
     setCrewId(id);
     setActive(id);
+    animate(
+      scope.current,
+      {
+        y: [100, 0],
+        opacity: [0, 1],
+        scale: [0.8, 1],
+      },
+      {
+        duration: 0.7,
+        ease: 'easeOut',
+      },
+      {
+        overflow: 'hidden',
+      }
+    );
   };
   return (
     <div>
@@ -35,8 +52,11 @@ export default function Home() {
           Meet your crew
         </h2>
         <div className="flex flex-col items-center gap-7 lg:mt-8 lg:flex-row lg:items-start ">
-          <div className="w-full border-b-[1px] border-white/20 sm:order-4 sm:border-none lg:basis-2/4 lg:self-end">
-            <div className="relative mx-auto h-56 max-w-full sm:h-[500px] lg:h-[70vh] ">
+          <div className="w-full overflow-hidden border-b-[1px] border-white/20 sm:order-4 sm:border-none lg:basis-2/4 lg:self-end">
+            <div
+              ref={scope}
+              className="relative mx-auto h-56 max-w-full  sm:h-[500px] lg:h-[70vh]"
+            >
               <Image
                 src={image}
                 alt="crew member"
@@ -60,16 +80,22 @@ export default function Home() {
               ))}
             </div>
             <div
-              className={`${titleFont.className} mt-8 text-center uppercase text-white sm:order-1 lg:text-left`}
+              className={`mt-8 text-center text-white sm:order-1 sm:h-56 lg:h-[20rem] lg:text-left`}
             >
-              <h2 className="opacity-50 mix-blend-normal sm:mb-2 sm:text-2xl lg:text-3xl">
+              <h2
+                className={`${titleFont.className} uppercase opacity-50 sm:mb-2 sm:text-2xl lg:text-3xl`}
+              >
                 {role}
               </h2>
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl">{name}</h1>
+              <h1
+                className={`${titleFont.className} text-2xl uppercase sm:text-4xl lg:my-5 lg:text-5xl`}
+              >
+                {name}
+              </h1>
+              <p className="mt-4 text-center text-[#D0D6F9] sm:order-2 sm:mb-6 sm:leading-7 lg:pr-20 lg:text-left lg:text-lg">
+                {bio}
+              </p>
             </div>
-            <p className=" mt-6 text-center text-[#D0D6F9] sm:order-2 sm:mb-6 sm:leading-7 lg:mr-40 lg:text-left lg:text-lg">
-              {bio}
-            </p>
           </div>
         </div>
       </div>

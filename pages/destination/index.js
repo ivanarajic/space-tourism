@@ -3,16 +3,30 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { subtitleFont, titleFont } from '../../utils/fonts';
 import { destinationData } from '../../utils/constants';
+import { useAnimate } from 'framer-motion';
 
 export default function Home() {
   const [destinationId, setDestinationId] = useState(0);
   const [active, setActive] = useState(0);
+  const [scope, animate] = useAnimate();
 
   const { title, text, distance, time, img } = destinationData[destinationId];
 
   const handleClick = (id) => {
     setDestinationId(id);
     setActive(id);
+    animate(
+      scope.current,
+      {
+        opacity: [0, 1],
+        scale: [0.75, 1],
+        rotate: [19, 0],
+      },
+      {
+        duration: 0.7,
+        ease: 'easeOut',
+      }
+    );
   };
 
   return (
@@ -25,7 +39,7 @@ export default function Home() {
 
       <div className="fixed top-0 left-0 right-0 bottom-0 -z-10 bg-img-dest-mobile bg-cover bg-no-repeat sm:bg-img-dest-tablet lg:bg-img-dest-desktop" />
 
-      <div className="flex flex-col items-center gap-7 p-8 text-white  lg:pl-36 ">
+      <div className="flex flex-col items-center gap-7 p-8 text-white lg:pl-36">
         <h2
           className={`${subtitleFont.className} mt-4 uppercase tracking-[2.7px]  sm:self-start sm:text-xl  lg:text-2xl`}
         >
@@ -33,8 +47,8 @@ export default function Home() {
           Pick your destination
         </h2>
 
-        <div className="flex flex-col items-center gap-7 lg:mt-0 lg:flex-row  lg:gap-20 lg:px-20">
-          <div className="mb-6 flex-grow lg:mb-0 ">
+        <div className="flex flex-col items-center gap-7 lg:mt-0  lg:flex-row lg:gap-20 lg:px-20">
+          <div ref={scope} className="mb-6 lg:basis-2/4 ">
             <Image
               src={img}
               alt="planet"
@@ -44,7 +58,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="mx-auto flex flex-col items-center gap-7 sm:px-14  lg:items-start lg:text-left">
+          <div className="mx-auto flex flex-col items-center gap-7 sm:px-14 lg:basis-2/4 lg:items-start lg:text-left">
             <div
               className={`${subtitleFont.className} flex gap-5 text-sm uppercase tracking-[2.3px] text-[#D0D6F9]`}
             >

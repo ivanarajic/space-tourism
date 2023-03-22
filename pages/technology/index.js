@@ -3,16 +3,32 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { subtitleFont, titleFont } from '../../utils/fonts';
 import { spaceLaunchData } from '../../utils/constants';
+import { useAnimate } from 'framer-motion';
 
 export default function Home() {
   const [spaceId, setSpaceId] = useState(0);
   const [active, setActive] = useState(0);
+  const [scope, animate] = useAnimate();
 
   const { title, subtitle, text, image } = spaceLaunchData[spaceId];
 
   const handleClick = (id) => {
     setSpaceId(id);
     setActive(id);
+    animate(
+      scope.current,
+      {
+        opacity: [0, 1],
+        scale: [0.8, 1],
+      },
+      {
+        duration: 0.7,
+        ease: 'easeOut',
+      },
+      {
+        overflow: 'hidden',
+      }
+    );
   };
 
   return (
@@ -23,11 +39,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="fixed top-0 left-0 right-0 bottom-0 -z-10  bg-img-tech-mobile bg-cover bg-no-repeat sm:bg-img-tech-tablet lg:bg-img-tech-desktop" />
+      <div className="fixed top-0 left-0 right-0 bottom-0 -z-10 bg-img-tech-mobile bg-cover bg-no-repeat sm:bg-img-tech-tablet lg:bg-img-tech-desktop" />
 
       <div
         className="flex flex-col items-center gap-7
-         py-8 text-white lg:items-start lg:pl-36"
+          py-8 text-white lg:items-start lg:pl-36"
       >
         <h2
           className={`${subtitleFont.className} mt-4 px-8 uppercase tracking-[2.7px] sm:self-start sm:text-xl lg:px-0 lg:text-2xl`}
@@ -36,8 +52,11 @@ export default function Home() {
           Space Launch 101
         </h2>
 
-        <div className=" flex flex-col items-center gap-7 lg:mt-8 lg:flex-row  lg:justify-start ">
-          <div className="relative h-52 w-full sm:h-80 lg:order-2 lg:h-[527px] lg:w-[515px] ">
+        <div className="flex flex-col items-center gap-7 lg:my-8 lg:flex-row lg:justify-start">
+          <div
+            ref={scope}
+            className="relative h-52 w-full overflow-hidden sm:h-80 lg:order-2 lg:h-[527px] lg:w-[515px]"
+          >
             <Image
               src={image[0]}
               alt="space"
@@ -48,7 +67,7 @@ export default function Home() {
             <Image
               src={image[1]}
               alt="space"
-              className=" hidden object-cover lg:block"
+              className="hidden object-cover lg:block"
               sizes="100vw"
               fill
             />
@@ -61,7 +80,6 @@ export default function Home() {
                   active === item.id && 'bg-white text-[#0B0D17]'
                 }`}
                 onClick={() => handleClick(item.id)}
-                a
               >
                 {item.id + 1}
               </a>

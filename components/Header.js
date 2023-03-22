@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Image from 'next/image';
 import { subtitleFont } from '../utils/fonts';
+import Link from 'next/link';
 
 function Header() {
   const [navbarOpen, setNavbarOpen] = useState(false);
-
-  useEffect(() => {
-    if (navbarOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [navbarOpen]);
 
   const handleToggle = () => {
     setNavbarOpen(!navbarOpen);
@@ -22,14 +15,16 @@ function Header() {
     <header
       className={`${subtitleFont.className} z-50 m-6 flex items-center justify-between sm:m-0 sm:ml-10 sm:h-24 lg:mt-10 lg:ml-14`}
     >
-      <div className="cursor-pointer lg:basis-1/12">
-        <Image
-          className="lg:h-12 lg:w-12"
-          src="/assets/shared/logo.svg"
-          alt="Logo"
-          width={40}
-          height={40}
-        />
+      <div className="lg:basis-1/12">
+        <Link href={'/'}>
+          <Image
+            className="cursor-pointer lg:h-12 lg:w-12 "
+            src="/assets/shared/logo.svg"
+            alt="Logo"
+            width={40}
+            height={40}
+          />
+        </Link>
       </div>
 
       <button

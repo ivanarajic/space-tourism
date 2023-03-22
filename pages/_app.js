@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <main className={`${textFont.className}  overflow-x-hidden `}>
+    <main className={`${textFont.className} overflow-x-hidden`}>
       <Layout>
         <Component {...pageProps} />
       </Layout>

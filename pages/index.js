@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Header from '../components/Header';
 import { subtitleFont, titleFont } from '../utils/fonts';
 import Link from 'next/link';
 
@@ -14,7 +13,7 @@ export default function Home() {
 
       <div className="fixed top-0 left-0 right-0 bottom-0 -z-50  bg-img-home-mobile bg-cover bg-no-repeat sm:bg-img-home-tablet lg:bg-img-home-desktop " />
       <div className="mx-10 mt-20 mb-12 text-center text-white sm:mx-24 sm:mt-40 lg:mx-40 lg:flex lg:text-left">
-        <div className="flex-1 lg:pr-32">
+        <div className=" lg:basis-2/4 lg:pr-32">
           <h2
             className={`${subtitleFont.className} uppercase tracking-[2.7px] text-[#D0D6F9] sm:text-xl`}
           >
@@ -33,10 +32,11 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="mt-20 flex-1 lg:text-right">
+        <div className="mt-20 lg:basis-2/4  lg:text-center">
           <Link href={'/destination'}>
             <button
-              className={`${titleFont.className} h-40 w-40 rounded-full bg-white text-center text-2xl uppercase text-[#0B0D17]  lg:h-52 lg:w-52`}
+              className={`${titleFont.className} 
+               relative h-40 w-40 rounded-full bg-white text-center text-2xl uppercase text-[#0B0D17] before:absolute before:top-0 before:left-0 before:h-full before:w-full before:rounded-full before:bg-white/10 before:transition-transform hover:before:scale-150 lg:h-52 lg:w-52`}
             >
               Explore
             </button>
